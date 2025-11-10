@@ -6,9 +6,9 @@ const userSchema =new mongoose.Schema({
         require:[true,"Provide name"]
     },
     email: {
-type :String,
-require:[true,"provide email"],
-unique:true
+        type :String,
+        require:[true,"provide email"],
+        unique:true
     },
     password :{
         type:String,
@@ -45,6 +45,27 @@ unique:true
     },
     shopping_cart:{
         type: mongoose.Schema.ObjectId,
-       ref:'cart'
+       ref:'cardProduct'
+    },
+    orderHistory:{
+        type: mongoose.Schema.ObjectId,
+       ref:'order'
+    },
+    forgot_password_otp:{
+        type : String,
+        default:null
+    },
+    forgot_password_expiry:{
+        type:Date,
+        default:""
+    },
+    role:{
+        type:String,
+        enum:["ADMIN","USER"],
+        default:"USER"
     }
-}) 
+},{
+    timestamps:true
+})
+const UserModel = mongoose.model("User",userSchema) 
+export default UserModel
